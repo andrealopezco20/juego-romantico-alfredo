@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para mi persona favorita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Laberinto sencillo: un recorrido visible y directo, adaptado a pantallas pequeñas. */
+    .maze{--cell:clamp(22px,6.4vw,40px);display:grid;grid-template-columns:repeat(10,var(--cell));grid-template-rows:repeat(10,var(--cell));gap:3px;padding:12px;background:linear-gradient(135deg,#2d8ed0,#174f93);border:5px solid #a7efff;border-radius:18px;clip-path:none;box-shadow:inset 0 0 0 3px #63caff,0 9px 0 #09295d;filter:drop-shadow(0 8px 8px #020b2c99)}
+    .maze .cell{width:var(--cell);height:var(--cell);display:grid;place-items:center;border-radius:5px}
+    .maze .path{background:linear-gradient(145deg,#e8fbff,#aee9ff);box-shadow:inset 1px 1px #fff,0 1px #4fa6df}
+    .maze .wall{background:linear-gradient(145deg,#1d387c,#0b1944);box-shadow:inset 2px 2px #4763a1, inset -2px -2px #06102e}
+    .maze .player,.maze .goal{display:block;width:70%;height:70%;position:relative;line-height:1}
+    .maze .player{border:2px solid #173c79;border-radius:50%;background:radial-gradient(circle at 33% 38%,#173c79 0 7%,transparent 8%),radial-gradient(circle at 67% 38%,#173c79 0 7%,transparent 8%),linear-gradient(145deg,#fff9ca,#ffc84d);box-shadow:0 2px 0 #b67825}
+    .maze .player::before{content:none}
+    .maze .player::after{content:"";position:absolute;width:34%;height:16%;left:33%;top:57%;border-bottom:2px solid #173c79;border-radius:0 0 12px 12px}
+    .maze .goal{width:72%;height:72%;margin:14%;overflow:visible;filter:drop-shadow(1px 2px 0 #7f2150);animation:pulseHeart .8s infinite alternate}
+    .maze .goal path{fill:#ef5a8b;stroke:#8e2452;stroke-width:1.25;stroke-linejoin:round}
+    @keyframes pulseHeart{from{transform:scale(1)}to{transform:scale(1.16)}}
+    .maze.maze-challenge{--cell:clamp(17px,4.3vw,30px);grid-template-columns:repeat(15,var(--cell));grid-template-rows:repeat(15,var(--cell));gap:2px;padding:10px;border-radius:16px}
+    .maze-guide{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px;font:9px 'Press Start 2P',monospace;color:#d7f6ff}
+    .maze-guide span{padding:8px 10px;border:1px solid #5fcaff;border-radius:999px;background:#102852cc}
+    .maze-guide span::before{content:"";display:inline-block;width:11px;height:11px;margin-right:7px;vertical-align:-1px}
+    .maze-guide .start-key::before{border-radius:50%;background:#ffc84d;border:2px solid #173c79}
+    .maze-guide .goal-key::before{background:#e95489;transform:rotate(45deg);border-radius:2px}
+    @media(max-width:760px){.maze{--cell:clamp(22px,7.4vw,30px);gap:2px;padding:8px;border-width:4px}.maze.maze-challenge{--cell:clamp(17px,5vw,22px);gap:1px;padding:7px}.maze-guide{font-size:7px;gap:6px}.maze-guide span{padding:7px 8px}}
+  </style>
+</head>
+<body>
+  <div class="sky" aria-hidden="true"></div>
+  <main class="console" aria-label="Consola romántica">
+    <section class="joycon left" aria-label="Controles izquierdos">
+      <button class="stick" data-action="up" aria-label="Joystick arriba"><i></i></button>
+      <div class="dpad" aria-label="Cruceta">
+        <button data-action="up" aria-label="Arriba">▲</button>
+        <button data-action="left" aria-label="Izquierda">◀</button>
+        <span></span>
+        <button data-action="right" aria-label="Derecha">▶</button>
+        <button data-action="down" aria-label="Abajo">▼</button>
+      </div>
+      <button class="small-button" data-action="back" aria-label="Volver">−</button>
+    </section>
+
+    <section class="device">
+      <div class="top-speaker"></div>
+      <div class="screen-shell">
+        <div class="screen-status"><span>♥ LOVE OS</span><span id="statusText">LISTO</span><span>100%</span></div>
+        <div id="game" class="game" tabindex="0" aria-live="polite"></div>
+        <div class="screen-footer"><span>◉ CONTROLES ACTIVOS</span><span>◀ ▲ ▼ ▶ + A</span></div>
+      </div>
+    </section>
+
+    <section class="joycon right" aria-label="Controles derechos">
+      <button class="plus" data-action="pause" aria-label="Pausa">+</button>
+      <div class="face-buttons" aria-label="Botones de acción">
+        <button data-action="alt" aria-label="Botón X">X</button>
+        <button data-action="alt" aria-label="Botón Y">Y</button>
+        <button class="accept" data-action="accept" aria-label="Aceptar">A</button>
+        <button data-action="back" aria-label="Botón B">B</button>
+      </div>
+      <button class="stick" data-action="down" aria-label="Joystick abajo"><i></i></button>
+      <button class="home" data-action="home" aria-label="Inicio">⌂</button>
+    </section>
+  </main>
+  <p class="help">Usa la cruceta o las flechas para moverte · <kbd>A</kbd> / <kbd>Enter</kbd> para aceptar</p>
+  <script src="script.js"></script>
+</body>
+</html>
