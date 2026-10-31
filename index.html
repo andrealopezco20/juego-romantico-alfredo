@@ -28,6 +28,17 @@
     .maze-guide .start-key::before{border-radius:50%;background:#ffc84d;border:2px solid #173c79}
     .maze-guide .goal-key::before{background:#e95489;transform:rotate(45deg);border-radius:2px}
     @media(max-width:760px){.maze{--cell:clamp(22px,7.4vw,30px);gap:2px;padding:8px;border-width:4px}.maze.maze-challenge{--cell:clamp(17px,5vw,22px);gap:1px;padding:7px}.maze-guide{font-size:7px;gap:6px}.maze-guide span{padding:7px 8px}}
+    .rotate-notice{display:none}
+    @media(max-width:760px) and (orientation:portrait){
+      .rotate-notice{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center;background:radial-gradient(circle at 50% 35%,#174f83,#071326 70%);color:#dff8ff}
+      .rotate-icon{width:82px;height:54px;margin-bottom:22px;border:4px solid #65d8ff;border-radius:10px;box-shadow:0 0 25px #38b9ff77;transform:rotate(-18deg);position:relative}
+      .rotate-icon::after{content:"↻";position:absolute;right:-29px;bottom:-27px;color:#ff91bd;font:42px Nunito,sans-serif;font-weight:900}
+      .rotate-notice h2{font:15px 'Press Start 2P',monospace;line-height:1.7;color:#b9edff}
+      .rotate-notice p{max-width:290px;line-height:1.5}
+      .rotate-notice button{border:0;border-radius:999px;padding:12px 18px;color:#fff;background:linear-gradient(135deg,#26bdf0,#3759c5);box-shadow:0 5px 0 #123b8b;font:800 13px Nunito,sans-serif}
+    }
+    @media(max-width:920px) and (orientation:landscape){
+      body{overflow:hidden;padding:5px;min-height:100dvh}.console{width:98vw;height:calc(100dvh - 10px);min-height:0;grid-template-columns:88px minmax(0,1fr) 88px;grid-template-rows:1fr}.device{grid-column:2;grid-row:1;height:100%;padding:7px;order:initial}.screen-shell{height:100%;min-height:0;padding:7px}.game{min-height:0}.joycon{grid-row:1;padding:10px 4px;gap:10px;border-top:5px solid #092b67;border-radius:35px 12px 12px 35px;flex-direction:column}.right{grid-column:3;border-top-color:#160b48;border-radius:12px 35px 35px 12px}.left{grid-column:1}.stick{width:48px;height:48px;border-width:5px}.dpad{transform:scale(.6);margin:-25px}.face-buttons{transform:scale(.64);margin:-25px}.small-button,.plus,.home{width:27px;height:27px}.top-speaker{display:none}.screen-status,.screen-footer{height:20px;font-size:6px}.view{padding:12px}.view h1{font-size:clamp(13px,2.7vw,21px);margin:5px 0 10px}.view h2{font-size:clamp(10px,1.9vw,15px);margin:5px 0 10px}.view p{font-size:clamp(12px,1.9vw,16px);line-height:1.35}.primary,.choice,.level{padding:8px 15px;margin-top:10px}.help{display:none}}
   </style>
 </head>
 <body>
@@ -67,6 +78,12 @@
     </section>
   </main>
   <p class="help">Usa la cruceta o las flechas para moverte · <kbd>A</kbd> / <kbd>Enter</kbd> para aceptar</p>
+  <aside class="rotate-notice" aria-label="Modo horizontal recomendado">
+    <div class="rotate-icon" aria-hidden="true"></div>
+    <h2>GIRA TU CELULAR</h2>
+    <p>Este juego fue diseñado para jugarse como una consola portátil horizontal.</p>
+    <button id="landscapeButton" type="button">PONER HORIZONTAL</button>
+  </aside>
   <script src="script.js"></script>
 </body>
 </html>
